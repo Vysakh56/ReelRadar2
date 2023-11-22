@@ -6,7 +6,7 @@ import MovieCard from "./MovieCard.jsx";
 
 
 
-const API_URL="http://www.omdbapi.com?apikey=19b3fb15"
+const API_URL=`http://www.omdbapi.com?apikey=${process.env.REACT_APP_OMDB_API_KEY}`
 
 
 
