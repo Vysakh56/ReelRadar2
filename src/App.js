@@ -14,11 +14,15 @@ const App=()=>{
 
     const [movies,setMovies]=useState([]);
 
+    const [searchTerm,setSearchTearm]= useState("");
+
     const searchmovies= async(title) =>{
         const response = await fetch(`${API_URL}&s=${title}`);
         const data = await response.json()
         
-        setMovies(data.search)
+        setMovies(data.Search)
+
+        console.log(data)
     }
 
     useEffect(()=>
@@ -26,14 +30,7 @@ const App=()=>{
             searchmovies("Superman");
     },[])
 
-    const movie1 ={
-        "Title": "Superman",
-        "Year": "1978",
-        "imdbID": "tt0078346",
-        "Type": "movie",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BMzA0YWMwMTUtMTVhNC00NjRkLWE2ZTgtOWEzNjJhYzNiMTlkXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg"
-    }
-    
+
 
     return(
         <div className="container">
@@ -41,13 +38,13 @@ const App=()=>{
 
             <div className="search">
                 <input placeholder="Search the title" 
-                    value="Superman"
-                    onChange={()=>{}}
+                    value={searchTerm}
+                    onChange={(e)=>(setSearchTearm(e.target.value))}
                     type="text"/>
                     <img
                     src={searchIcon}
                     alt="search"
-                    onClick={()=>{}}/>
+                    onClick={()=>searchmovies(searchTerm)}/>
             </div>
 
 
@@ -55,8 +52,9 @@ const App=()=>{
                 movies?.length > 0 
                     ? (
                         <div className="container">
-
-                        <   MovieCard movie1={movies[0]}/>
+                            {movies.map((movie)=>(
+                                <  MovieCard movie={movie}/>
+                            ))}
                         </div>
                       )
 
@@ -65,8 +63,7 @@ const App=()=>{
                             <h2>No movies found</h2>
                         </div>
                     )
-                    
-
+                
             }
 
            
